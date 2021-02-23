@@ -1,0 +1,109 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title Verify Email - Appmon
+    style.
+      :root {
+      --white: #f1f1f1;
+      }
+      body {
+      font-family: Helvetica, Arial, sans-serif;
+      color: #333;
+      }
+      .outer-container {
+      width: 60vw;
+      min-width: 400px;
+      height: 96vh;
+      margin: 1rem auto;
+      border-radius: 5px;
+      }
+      .inner-container {
+      width: 90%;
+      height: 90%;
+      margin: 0 auto;
+      }
+      .btn-container {
+      margin-top: 2rem;
+      }
+      .btn {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 10px;
+        color: #ffffff;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 20px;
+        letter-spacing: 2px;
+        font-weight: 100;
+        padding: 10px 80px;
+        border: solid #8965e0 1px;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+      }
+      .btn:hover {
+        border: solid #1b435e 1px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 10px;
+        text-decoration: none;
+      }
+      .queries {
+      margin: auto;
+      width: 50%;
+      padding: 0.4rem;
+      height: 4rem;
+      border-radius: 5px;
+      }
+      .query-img {
+      padding: 10px;
+      }
+      .query-desc {
+      padding: 4px;
+      line-height: 0.5;
+      }
+      .contact {
+      margin-top: 4rem;
+      color: #898b8a;
+      font-size: 0.75rem;
+      }
+      .query-link {
+      text-decoration: none;
+      }
+      .contact-link {
+      text-decoration: none;
+      color: #898b8a;
+      }
+  body
+    center
+      .outer-container
+        .inner-container
+          section.logo
+            img(src='https://img.icons8.com/bubbles/100/000000/email.png')
+          section.welcome
+            h1 Hey! #{name}
+            h2 Appmon Heartily Welcomes You !
+            h5 YOU'RE ONE STEP AWAY !
+          section.verify
+            h4
+              | To complete your profile and start being a part of the
+              | community,
+              br
+              |               you'll need to verify your email address.
+            .btn-container
+              a.btn(href=`${verifyUrl}` target='_blank') VERIFY
+          section.queries
+            .query-img
+              img(src='https://img.icons8.com/dusk/64/000000/send-mass-email.png')
+            .query-desc
+              p Have a question?
+              a.query-link(href='http://admin@appmon.com') Reach out to our team
+          footer.contact
+            a.contact-link(href='http://admin@appmon.com') Contact
+            p
+              | Bangalore, Ind 420420
+              br
+              | © 2020 Appmon

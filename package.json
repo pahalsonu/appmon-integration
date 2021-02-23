@@ -1,0 +1,17 @@
+{
+  "name": "appmonFrontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "Appmon-ui": "npm start --prefix Appmon-ui",
+    "appmon-node-apis" : "npm start --prefix appmon-node-apis",
+    "mern" : "concurrently 'npm run Appmon-ui' 'npm run appmon-node-apis' "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  }
+}
