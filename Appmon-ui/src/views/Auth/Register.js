@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Card, CardBody, Form } from "reactstrap";
 import { Link } from "react-router-dom";
-
+//set state
 const Register = () => {
 
   const [name, setFullName] = useState({
