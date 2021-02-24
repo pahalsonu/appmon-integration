@@ -3,18 +3,36 @@ import { Row, Col, Card, CardBody, Form } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Register = () => {
- 
-  const [firstName, setFirstName] = useState('');
 
-  const firstNameChange = (e) => {
-    setFirstName(e.target.value)
+  const [name, setFullName] = useState({
+    individual: "",
+    organization: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobileNumber: "",
+    password: "",
+    confirmPassword: "",
+    agree: ""
+  })
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setFullName((prevalue) => {
+      console.log(prevalue);
+      return {
+        ...prevalue,
+        [name]: value,
+      }
+    })
   };
 
-  const submit = (e) => {
-    console.log('hek')
-    e.preventDefault();
- 
 
+
+  const onSubmit = (e) => {
+    console.log('hek')
+
+    e.preventDefault();
   }
 
   return (
@@ -23,9 +41,9 @@ const Register = () => {
         <Card className="bg-secondary border-0 mb-0">
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Sign up by providing following details</small>
+              <small>Sign up by providing following details </small>
             </div>
-            <Form onSubmit={submit}>
+            <Form onSubmit={onSubmit}>
               <div className="row">
                 <div className="col-lg-12">
                   <div className="form-group">
@@ -33,9 +51,10 @@ const Register = () => {
                       <label className="labels">Account Type</label>
                       <div className="custom-control custom-radio ml-5">
                         <input
-                          name="custom-radio-1"
+                          name="individual"
                           className="custom-control-input"
                           id="individualRadio"
+                          value={name.individual}
                           type="radio"
                         />
                         <label className="custom-control-label" htmlFor="individualRadio">
@@ -44,9 +63,12 @@ const Register = () => {
                       </div>
                       <div className="custom-control custom-radio ml-5">
                         <input
-                          name="custom-radio-1"
+
                           className="custom-control-input"
                           id="organizationRadio"
+                          name="organization"
+                          value={name.organization}
+                          onChange={onChange}
                           type="radio"
                         />
                         <label className="custom-control-label" htmlFor="organizationRadio">
@@ -69,8 +91,9 @@ const Register = () => {
                       <input
                         className="form-control"
                         placeholder="First Name"
-                        value={firstName}
-                        onChange={firstNameChange}
+                        name = "firstName"
+                        value={name.firstName}
+                        onChange={onChange}
                         type="text"
                       />
                     </div>
@@ -88,6 +111,9 @@ const Register = () => {
                         className="form-control"
                         placeholder="Last Name"
                         type="text"
+                        name="lastName"
+                        value={name.lastName}
+                        onChange={onChange}
                       />
                     </div>
                   </div>
@@ -105,6 +131,9 @@ const Register = () => {
                     className="form-control"
                     placeholder="Email"
                     type="email"
+                    name="email"
+                    value={name.email}
+                    onChange={onChange}
                   />
                 </div>
               </div>
@@ -119,6 +148,9 @@ const Register = () => {
                     className="form-control"
                     placeholder="Mobile Number"
                     type="number"
+                    name="mobileNumber"
+                    value={name.mobileNumber}
+                    onChange={onChange}
                   />
                 </div>
               </div>
@@ -135,6 +167,9 @@ const Register = () => {
                         className="form-control"
                         placeholder="Password"
                         type="password"
+                        name="password"
+                        value={name.password}
+                        onChange={onChange}
                       />
                     </div>
                   </div>
@@ -151,6 +186,9 @@ const Register = () => {
                         className="form-control"
                         placeholder="Confirm Password"
                         type="password"
+                        name="confirmPassword"
+                        value={name.confirmPassword}
+                        onChange={onChange}
                       />
                     </div>
                   </div>
@@ -170,6 +208,9 @@ const Register = () => {
                       className="custom-control-input"
                       id="customCheckRegister"
                       type="checkbox"
+                      name="agree"
+                      value={name.agree}
+                      onChange={onChange}
                     />
                     <label
                       className="custom-control-label"

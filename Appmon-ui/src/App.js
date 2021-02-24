@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import AuthLayout from "./layouts/AuthLayout";
 // static and dynamic comp
-//fir intergration
+
 import Login from "./views/Auth/Login";
 import ForgotPassword from "./views/Auth/ForgotPassword";
 import Register from "./views/Auth/Register";
