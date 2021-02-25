@@ -3,6 +3,30 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [name, setfullName] = useState({
+    email: "",
+    password: "",
+    rememberMe: false
+  });
+
+  const onChange = (e) => {
+    const { name, value, checked } = e.target;
+    setfullName((prevalue) => {
+      if (name === "rememberMe") {
+        return {
+          ...prevalue,
+          [name]: checked
+        }
+      }
+      return {
+        ...prevalue,
+        [name]: value
+      }
+    })
+  }
+  const onSubmit = (e) => {
+    e.preventDefault()
+  }
 
   return (
     <>
@@ -12,7 +36,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Sign in with Credentials</small>
             </div>
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="form-group mb-3">
                 <div className="input-group input-group-merge input-group-alternative">
                   <div className="input-group-prepend">
@@ -24,6 +48,9 @@ const Login = () => {
                     className="form-control"
                     placeholder="Email"
                     type="email"
+                    name="email"
+                    value={name.email}
+                    onChange={onChange}
                   />
                 </div>
               </div>
@@ -38,16 +65,23 @@ const Login = () => {
                     className="form-control"
                     placeholder="Password"
                     type="password"
+                    name="password"
+                    value={name.password}
+                    onChange={onChange}
                   />
                 </div>
               </div>
               <div className="custom-control custom-control-alternative custom-checkbox">
                 <input
                   className="custom-control-input"
-                  id=" customCheckLogin"
+                  id="customCheckLogin"
                   type="checkbox"
+                  name="rememberMe"
+                  value={name.rememberMe}
+                  onChange={onChange}
+                  
                 />
-                <label className="custom-control-label" htmlFor=" customCheckLogin">
+                <label className="custom-control-label" htmlFor="customCheckLogin">
                   <span className="text-muted">Remember me</span>
                 </label>
               </div>
@@ -60,12 +94,12 @@ const Login = () => {
           </CardBody>
         </Card>
         <Row className="mt-3">
-            <Col lg="6" mg="6">
-                <Link to="./forgotPassword" className="text-light"><small>Forgot password?</small></Link>
-            </Col>
-            <Col lg="6" mg="6" className="text-right">
-                <Link to="./register" className="text-light"><small>Create new account</small></Link>
-            </Col>
+          <Col lg="6" mg="6">
+            <Link to="./forgotPassword" className="text-light"><small>Forgot password?</small></Link>
+          </Col>
+          <Col lg="6" mg="6" className="text-right">
+            <Link to="./register" className="text-light"><small>Create new account</small></Link>
+          </Col>
         </Row>
       </Col>
     </>

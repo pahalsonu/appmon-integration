@@ -17,13 +17,11 @@ const Register = () => {
 
   const onChange = (e) => {
     const { name, value, checked } = e.target;
-    console.log(e.target)
     setFullName((prevalue) => {
-      console.log(prevalue);
-      if (name==="agree"){
-        return{
+      if (name === "agree") {
+        return {
           ...prevalue,
-          [name] : checked
+          [name]: checked
         }
       }
       return {
