@@ -5,21 +5,27 @@ import { Link } from "react-router-dom";
 const Register = () => {
 
   const [name, setFullName] = useState({
-    individual: "",
-    organization: "",
+    accountType: "",
     firstName: "",
     lastName: "",
     email: "",
     mobileNumber: "",
     password: "",
     confirmPassword: "",
-    agree: ""
+    agree: false
   })
 
   const onChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked } = e.target;
+    console.log(e.target)
     setFullName((prevalue) => {
       console.log(prevalue);
+      if (name==="agree"){
+        return{
+          ...prevalue,
+          [name] : checked
+        }
+      }
       return {
         ...prevalue,
         [name]: value,
@@ -30,8 +36,6 @@ const Register = () => {
 
 
   const onSubmit = (e) => {
-    console.log('hek')
-
     e.preventDefault();
   }
 
@@ -51,10 +55,11 @@ const Register = () => {
                       <label className="labels">Account Type</label>
                       <div className="custom-control custom-radio ml-5">
                         <input
-                          name="individual"
+                          name="accountType"
                           className="custom-control-input"
                           id="individualRadio"
-                          value={name.individual}
+                          onChange={onChange}
+                          value="individual"
                           type="radio"
                         />
                         <label className="custom-control-label" htmlFor="individualRadio">
@@ -66,8 +71,8 @@ const Register = () => {
 
                           className="custom-control-input"
                           id="organizationRadio"
-                          name="organization"
-                          value={name.organization}
+                          name="accountType"
+                          value="organization"
                           onChange={onChange}
                           type="radio"
                         />
@@ -91,7 +96,7 @@ const Register = () => {
                       <input
                         className="form-control"
                         placeholder="First Name"
-                        name = "firstName"
+                        name="firstName"
                         value={name.firstName}
                         onChange={onChange}
                         type="text"
