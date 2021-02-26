@@ -72,63 +72,63 @@ router.get('/otp/send-otp', auth, async (req, res) => {
     const otp = helpers.generateOTP();
     const otpMsg = "You AppMon Verification Code is: " + otp.token;
 
-    if(req.individual) {
+    if (req.individual) {
       const individualData = await Individual.findById(req.individual.individual);
-      if(!individualData) {
+      if (!individualData) {
         return res.status(helpers.statusCodes.NOT_FOUND).json({
           message: "User not found."
         });
       }
 
-      if(individualData.isPhoneVerified) {
+      if (individualData.isPhoneVerified) {
         return res.status(helpers.statusCodes.NOT_MODIFIED).json({
           message: "Phone is already verified."
         });
       }
 
       individualData.otp = {
-        token : otp.token,
-        timeStamp : otp.timeStamp
+        token: otp.token,
+        timeStamp: otp.timeStamp
       };
-  
+
       await individualData.save();
-  
+
       await helpers.sendTwilioSMS(individualData.phone, otpMsg);
-  
+
       return res.status(helpers.statusCodes.SUCCESS).json({
         message: "OTP Sent."
       });
     }
     else {
       const organizationData = await Organization.findById(req.organization.organization);
-      if(!organizationData) {
+      if (!organizationData) {
         return res.status(helpers.statusCodes.NOT_FOUND).json({
           message: "User not found."
         });
       }
 
-      if(organization.isPhoneVerified) {
+      if (organization.isPhoneVerified) {
         return res.status(helpers.statusCodes.NOT_MODIFIED).json({
           message: "Phone is already verified."
         });
       }
 
       organizationData.otp = {
-        token : otp.token,
-        timeStamp : otp.timeStamp
+        token: otp.token,
+        timeStamp: otp.timeStamp
       };
-  
+
       await organizationData.save();
-  
+
       await helpers.sendTwilioSMS(organizationData.phone, otpMsg);
-  
+
       return res.status(helpers.statusCodes.SUCCESS).json({
         message: "OTP Sent."
       });
     }
-    
+
   }
-  catch(err) {
+  catch (err) {
     console.log(error);
     res.status(401).json({ err: "Server Error. OTP cant be sent." });
   }
@@ -137,9 +137,9 @@ router.get('/otp/send-otp', auth, async (req, res) => {
 
 
 router.post('/otp/verify-otp', [
-    body('otp', "Please enter a valid number.").isNumeric(),
-    auth
-  ], async (req, res) => {
+  body('otp', "Please enter a valid number.").isNumeric(),
+  auth
+], async (req, res) => {
   try {
 
     const errors = validationResult(req);
@@ -157,15 +157,15 @@ router.post('/otp/verify-otp', [
 
     const { otp } = req.body;
 
-    if(req.individual) {
+    if (req.individual) {
       const individualData = await Individual.findById(req.individual.individual);
       const otpData = individualData.otp;
-      if(!otpData) {
+      if (!otpData) {
         return res.status(helpers.statusCodes.NOT_FOUND).json({
           message: "OTP has not been generated."
         });
       }
-      if(individualData.isPhoneVerified) {
+      if (individualData.isPhoneVerified) {
         return res.status(helpers.statusCodes.NOT_MODIFIED).json({
           message: "Phone number is already verified."
         });
@@ -174,14 +174,14 @@ router.post('/otp/verify-otp', [
       //Check if OTP Expired.
       const otpExpiresIn = config.otpExpiresInSeconds * 1000; //Seconds to Miniseconds
       const currentTimeStamp = Date.now();
-      if((otpData.timeStamp + otpExpiresIn) > currentTimeStamp) {
+      if ((otpData.timeStamp + otpExpiresIn) > currentTimeStamp) {
         return res.status(helpers.statusCodes.BAD_REQUEST).json({
           message: "OTP Expired."
         });
       }
 
       //Validate OTP
-      if(otp !== otpData.token) {
+      if (otp !== otpData.token) {
         return res.status(helpers.statusCodes.BAD_REQUEST).json({
           message: "Wrong OTP."
         });
@@ -197,12 +197,12 @@ router.post('/otp/verify-otp', [
     else {
       const organizationData = await Organization.findById(req.organization.organization);
       const otpData = organizationData.otp;
-      if(!otpData) {
+      if (!otpData) {
         return res.status(helpers.statusCodes.NOT_FOUND).json({
           message: "OTP has not been generated."
         });
       }
-      if(organizationData.isPhoneVerified) {
+      if (organizationData.isPhoneVerified) {
         return res.status(helpers.statusCodes.NOT_MODIFIED).json({
           message: "Phone number is already verified."
         });
@@ -211,14 +211,14 @@ router.post('/otp/verify-otp', [
       //Check if OTP Expired.
       const otpExpiresIn = config.otpExpiresInSeconds * 1000; //Seconds to Miniseconds
       const currentTimeStamp = Date.now();
-      if((otpData.timeStamp + otpExpiresIn) > currentTimeStamp) {
+      if ((otpData.timeStamp + otpExpiresIn) > currentTimeStamp) {
         return res.status(helpers.statusCodes.BAD_REQUEST).json({
           message: "OTP Expired."
         });
       }
 
       //Validate OTP
-      if(otp !== otpData.token) {
+      if (otp !== otpData.token) {
         return res.status(helpers.statusCodes.BAD_REQUEST).json({
           message: "Wrong OTP."
         });
@@ -233,7 +233,7 @@ router.post('/otp/verify-otp', [
     }
 
   }
-  catch(err) {
+  catch (err) {
     console.log(error);
     res.status(401).json({ err: "Server Error. OTP Cant be verified." });
   }

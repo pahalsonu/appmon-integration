@@ -40,8 +40,7 @@ const individualSchema = new Schema({
         default: false
     },
     emailToken: {
-        type: String,
-        unique : true
+        type: String
     },
     otp : {
         token : {

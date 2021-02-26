@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { Row, Col, Card, CardBody, Form } from "reactstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 //set state
 const Register = () => {
-
   const [name, setFullName] = useState({
-    accountType: "",
+    role: "",
     firstName: "",
     lastName: "",
     email: "",
-    mobileNumber: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    agree: false
+    tos: false
   })
-
   const onChange = (e) => {
     const { name, value, checked } = e.target;
     setFullName((prevalue) => {
-      if (name === "agree") {
+      if (name === "tos") {
         return {
           ...prevalue,
           [name]: checked
@@ -30,13 +30,14 @@ const Register = () => {
       }
     })
   };
-
-
-
   const onSubmit = (e) => {
     e.preventDefault();
+    axios.post('/api/users/individual/register', name, (err) => {
+      if (err) {
+        console.log(err)
+      }
+    })
   }
-
   return (
     <>
       <Col lg="7" md="7">
@@ -53,7 +54,7 @@ const Register = () => {
                       <label className="labels">Account Type</label>
                       <div className="custom-control custom-radio ml-5">
                         <input
-                          name="accountType"
+                          name="role"
                           className="custom-control-input"
                           id="individualRadio"
                           onChange={onChange}
@@ -151,7 +152,7 @@ const Register = () => {
                     className="form-control"
                     placeholder="Mobile Number"
                     type="number"
-                    name="mobileNumber"
+                    name="phone"
                     value={name.mobileNumber}
                     onChange={onChange}
                   />
@@ -211,7 +212,7 @@ const Register = () => {
                       className="custom-control-input"
                       id="customCheckRegister"
                       type="checkbox"
-                      name="agree"
+                      name="tos"
                       value={name.agree}
                       onChange={onChange}
                     />
